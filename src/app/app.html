@@ -1,0 +1,143 @@
+<div class="app-container">
+  <!-- Header - Only show if authenticated -->
+  @if (authService.isAuthenticated()) {
+    <header class="bg-white shadow-lg border-b border-gray-200 fixed top-0 w-full z-50 backdrop-blur-sm bg-white/95">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-20">
+          <!-- Logo/Brand -->
+          <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-3">
+              <!-- Logo Icon -->
+              <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z"></path>
+                </svg>
+              </div>
+              <div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  ShopZone
+                </h1>
+                <p class="text-xs text-gray-500 font-medium">Premium E-Commerce</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Search Bar (Desktop) -->
+          <div class="hidden lg:flex flex-1 max-w-2xl mx-8">
+            <div class="relative w-full">
+              <input 
+                type="text" 
+                placeholder="Ürün, kategori veya marka arayın..."
+                class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-700 placeholder-gray-500">
+              <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Navigation & Actions -->
+          <div class="flex items-center space-x-6">
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8">
+              <a routerLink="/" class="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium relative group">
+                Ana Sayfa
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a routerLink="/products" class="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium relative group">
+                Ürünler
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              @if (authService.isAdmin()) {
+                <a routerLink="/admin" class="text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium relative group">
+                  Admin
+                  <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              }
+              <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium relative group">
+                Kategoriler
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+              </a>
+              <a href="#" class="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium relative group">
+                İletişim
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+              </a>
+            </nav>
+            
+            <!-- User Actions -->
+            <div class="flex items-center space-x-4">
+              <!-- Wishlist -->
+              <button class="relative p-2 text-gray-700 hover:text-red-500 transition-all duration-300 hover:scale-110 group">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                  3
+                </span>
+              </button>
+              
+              <!-- User Account & Logout -->
+              <div class="flex items-center space-x-3">
+                <div class="text-sm text-gray-600">
+                  Hoş geldiniz, <span class="font-medium">{{ authService.user()?.username }}</span>
+                </div>
+                <button 
+                  (click)="authService.logout()"
+                  class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors"
+                >
+                  Çıkış Yap
+                </button>
+              </div>
+              
+              <!-- Mini Cart -->
+              <app-mini-cart></app-mini-cart>
+              
+              <!-- Mobile Menu Button -->
+              <button class="md:hidden p-2 text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Mobile Search Bar -->
+        <div class="lg:hidden pb-4">
+          <div class="relative">
+            <input 
+              type="text" 
+              placeholder="Ürün ara..."
+              class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-700 placeholder-gray-500">
+            <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Promotional Banner -->
+      <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white py-2">
+        <div class="container mx-auto px-4">
+          <div class="flex items-center justify-center space-x-2 text-sm font-medium">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            <span>🔥 Kargo Bedava! 500 TL ve üzeri alışverişlerde ücretsiz kargo fırsatı</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </header>
+  }
+  
+  <!-- Main Content -->
+  <main [class]="authService.isAuthenticated() ? 'main-content pt-32' : 'main-content'">
+    <router-outlet></router-outlet>
+  </main>
+</div>
