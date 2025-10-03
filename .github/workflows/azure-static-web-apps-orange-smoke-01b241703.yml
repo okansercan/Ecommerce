@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
         with:
           submodules: true
           node-version: 20
@@ -46,6 +46,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_SMOKE_01B241703 }}
           action: "close"
+
 
 
 
